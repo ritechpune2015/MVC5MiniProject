@@ -1,0 +1,72 @@
+﻿@model MiniApp.Models.StoreLoginVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+
+    <!-- Bootstrap CSS -->
+    <link href="~/BackendAssets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="~/BackendAssets/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="~/BackendAssets/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="~/BackendAssets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="~/BackendAssets/css/style.css" rel="stylesheet">
+    <link href="~/BackendAssets/css/style-responsive.css" rel="stylesheet" />
+</head>
+<body class="login-img3-body">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <div class="container">
+
+        @using (Html.BeginForm("doLogin","MangeStore",FormMethod.Post,new {@class="login-form"}))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="login-wrap">
+                <p class="login-img"><i class="icon_lock_alt"></i></p>
+                <div class="input-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon_profile"></i></span>
+                    @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
+                    @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                </div>
+                <input type="submit" class="btn btn-primary btn-lg btn-block" />
+            </div>
+        }
+        <div class="text-right">
+            <div class="credits">
+                <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+            -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>

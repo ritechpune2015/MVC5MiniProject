@@ -1,0 +1,40 @@
+﻿@model MiniApp.Models.UserTbl
+@{
+    ViewBag.Title = "Register";
+}
+    <div class="men">
+        <div class="container">
+            <div class="col-md-12 register">
+              @using (Html.BeginForm())
+              {
+                    <div class="register-top-grid">
+                        <h3>PERSONAL INFORMATION</h3>
+                        <div>
+                            <span>Name<label>*</label></span>
+                            @Html.EditorFor(p=>p.UserName)
+                            @Html.ValidationMessageFor(p=>p.UserName)
+                        </div>
+                        <div>
+                            <span>Email Address<label>*</label></span>
+                     @Html.EditorFor(p=>p.EmailID)
+                            @Html.ValidationMessageFor(p=>p.EmailID)
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="register-bottom-grid">
+                        <h3>LOGIN INFORMATION</h3>
+                        <div>
+                            <span>Password<label>*</label></span>
+                            @Html.EditorFor(p=>p.Password)
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                <div class="clearfix"> </div>
+                <div class="register-but">
+                   <input type="submit" value="submit">
+                </div>
+              }
+            </div>
+        </div>
+    </div>

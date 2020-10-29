@@ -1,0 +1,26 @@
+﻿@model MiniApp.Models.MainCategoryTbl
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MainCategoryTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MainCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MainCategory)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MainCategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

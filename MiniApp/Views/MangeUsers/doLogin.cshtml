@@ -1,0 +1,41 @@
+﻿@model MiniApp.Models.UserLoginVM
+@{
+    ViewBag.Title = "doLogin";
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<div class="men">
+    <div class="container">
+        <div class="register">
+            <div class="col-md-6 login-left">
+                <h3>NEW CUSTOMERS</h3>
+                <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                <a class="acount-btn" href="/MangeUsers/Register">Create an Account</a>
+            </div>
+            <div class="col-md-6 login-right">
+                <h3>REGISTERED CUSTOMERS</h3>
+                <p>If you have an account with us, please log in.</p>
+                @using (Html.BeginForm())
+                {
+                    <div>
+                        @Html.ValidationSummary(true)
+                    </div>
+                    <div>
+                        <span>Email Address<label>*</label></span>
+                        @Html.EditorFor(p => p.EmailID)
+                        @Html.ValidationMessageFor(p => p.EmailID)
+                    </div>
+                    <div>
+                        <span>Password<label>*</label></span>
+                        @Html.EditorFor(p => p.Password)
+                        @Html.ValidationMessageFor(p => p.Password)
+                    </div>
+                    <a class="forgot" href="#">Forgot Your Password?</a>
+                    <input type="submit" value="Login">
+                }
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,672 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MiniAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CartTbl">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="ProductID" Type="bigint" />
+          <Property Name="Qty" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CategoryTbl">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainCategoryID" Type="bigint" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DispatchAgencyTbl">
+          <Key>
+            <PropertyRef Name="DispatchAgencyID" />
+          </Key>
+          <Property Name="DispatchAgencyID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DispatchAgencyName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="EmailID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MainCategoryTbl">
+          <Key>
+            <PropertyRef Name="MainCategoryID" />
+          </Key>
+          <Property Name="MainCategoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainCategory" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OrderDetTbl">
+          <Key>
+            <PropertyRef Name="OrderDetID" />
+          </Key>
+          <Property Name="OrderDetID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="bigint" />
+          <Property Name="ProductID" Type="bigint" />
+          <Property Name="Qty" Type="bigint" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="OrderDispatchTbl">
+          <Key>
+            <PropertyRef Name="OrderDispatchID" />
+          </Key>
+          <Property Name="OrderDispatchID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="bigint" />
+          <Property Name="DispatchDate" Type="datetime" />
+          <Property Name="AgencyID" Type="bigint" />
+          <Property Name="DocketNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderTbl">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="PaymentMode" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductTbl">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" />
+          <Property Name="CategoryID" Type="bigint" />
+          <Property Name="ProductDesc" Type="varchar" MaxLength="200" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MfgName" Type="varchar" MaxLength="100" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StoreTbl">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreName" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="EmailID" Type="varchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="EmailID" Type="varchar" MaxLength="20" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CartTbl_ProductTbl">
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="0..1" />
+          <End Role="CartTbl" Type="Self.CartTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTbl">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="CartTbl">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CartTbl_UserTbl">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+          <End Role="CartTbl" Type="Self.CartTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CartTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryTbl_MainCategoryTbl">
+          <End Role="MainCategoryTbl" Type="Self.MainCategoryTbl" Multiplicity="0..1" />
+          <End Role="CategoryTbl" Type="Self.CategoryTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainCategoryTbl">
+              <PropertyRef Name="MainCategoryID" />
+            </Principal>
+            <Dependent Role="CategoryTbl">
+              <PropertyRef Name="MainCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetTbl_OrderTbl">
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="0..1" />
+          <End Role="OrderDetTbl" Type="Self.OrderDetTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetTbl">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetTbl_ProductTbl">
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="0..1" />
+          <End Role="OrderDetTbl" Type="Self.OrderDetTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTbl">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetTbl">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDispatchTbl_DispatchAgencyTbl">
+          <End Role="DispatchAgencyTbl" Type="Self.DispatchAgencyTbl" Multiplicity="0..1" />
+          <End Role="OrderDispatchTbl" Type="Self.OrderDispatchTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DispatchAgencyTbl">
+              <PropertyRef Name="DispatchAgencyID" />
+            </Principal>
+            <Dependent Role="OrderDispatchTbl">
+              <PropertyRef Name="AgencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDispatchTbl_OrderTbl">
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="0..1" />
+          <End Role="OrderDispatchTbl" Type="Self.OrderDispatchTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDispatchTbl">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTbl_UserTbl">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+          <End Role="OrderTbl" Type="Self.OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTbl_CategoryTbl">
+          <End Role="CategoryTbl" Type="Self.CategoryTbl" Multiplicity="0..1" />
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTbl">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ProductTbl">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniAppModelStoreContainer">
+          <EntitySet Name="CartTbl" EntityType="Self.CartTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryTbl" EntityType="Self.CategoryTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DispatchAgencyTbl" EntityType="Self.DispatchAgencyTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MainCategoryTbl" EntityType="Self.MainCategoryTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetTbl" EntityType="Self.OrderDetTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDispatchTbl" EntityType="Self.OrderDispatchTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTbl" EntityType="Self.OrderTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTbl" EntityType="Self.ProductTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreTbl" EntityType="Self.StoreTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CartTbl_ProductTbl" Association="Self.FK_CartTbl_ProductTbl">
+            <End Role="ProductTbl" EntitySet="ProductTbl" />
+            <End Role="CartTbl" EntitySet="CartTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartTbl_UserTbl" Association="Self.FK_CartTbl_UserTbl">
+            <End Role="UserTbl" EntitySet="UserTbl" />
+            <End Role="CartTbl" EntitySet="CartTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryTbl_MainCategoryTbl" Association="Self.FK_CategoryTbl_MainCategoryTbl">
+            <End Role="MainCategoryTbl" EntitySet="MainCategoryTbl" />
+            <End Role="CategoryTbl" EntitySet="CategoryTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetTbl_OrderTbl" Association="Self.FK_OrderDetTbl_OrderTbl">
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+            <End Role="OrderDetTbl" EntitySet="OrderDetTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetTbl_ProductTbl" Association="Self.FK_OrderDetTbl_ProductTbl">
+            <End Role="ProductTbl" EntitySet="ProductTbl" />
+            <End Role="OrderDetTbl" EntitySet="OrderDetTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDispatchTbl_DispatchAgencyTbl" Association="Self.FK_OrderDispatchTbl_DispatchAgencyTbl">
+            <End Role="DispatchAgencyTbl" EntitySet="DispatchAgencyTbl" />
+            <End Role="OrderDispatchTbl" EntitySet="OrderDispatchTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDispatchTbl_OrderTbl" Association="Self.FK_OrderDispatchTbl_OrderTbl">
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+            <End Role="OrderDispatchTbl" EntitySet="OrderDispatchTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTbl_UserTbl" Association="Self.FK_OrderTbl_UserTbl">
+            <End Role="UserTbl" EntitySet="UserTbl" />
+            <End Role="OrderTbl" EntitySet="OrderTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTbl_CategoryTbl" Association="Self.FK_ProductTbl_CategoryTbl">
+            <End Role="CategoryTbl" EntitySet="CategoryTbl" />
+            <End Role="ProductTbl" EntitySet="ProductTbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MiniAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CartTbl">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="ProductID" Type="Int64" />
+          <Property Name="Qty" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ProductTbl" Relationship="Self.FK_CartTbl_ProductTbl" FromRole="CartTbl" ToRole="ProductTbl" />
+          <NavigationProperty Name="UserTbl" Relationship="Self.FK_CartTbl_UserTbl" FromRole="CartTbl" ToRole="UserTbl" />
+        </EntityType>
+        <EntityType Name="CategoryTbl">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainCategoryID" Type="Int64" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MainCategoryTbl" Relationship="Self.FK_CategoryTbl_MainCategoryTbl" FromRole="CategoryTbl" ToRole="MainCategoryTbl" />
+          <NavigationProperty Name="ProductTbls" Relationship="Self.FK_ProductTbl_CategoryTbl" FromRole="CategoryTbl" ToRole="ProductTbl" />
+        </EntityType>
+        <EntityType Name="MainCategoryTbl">
+          <Key>
+            <PropertyRef Name="MainCategoryID" />
+          </Key>
+          <Property Name="MainCategoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CategoryTbls" Relationship="Self.FK_CategoryTbl_MainCategoryTbl" FromRole="MainCategoryTbl" ToRole="CategoryTbl" />
+        </EntityType>
+        <EntityType Name="OrderDetTbl">
+          <Key>
+            <PropertyRef Name="OrderDetID" />
+          </Key>
+          <Property Name="OrderDetID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" />
+          <Property Name="ProductID" Type="Int64" />
+          <Property Name="Qty" Type="Int64" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ProductTbl" Relationship="Self.FK_OrderDetTbl_ProductTbl" FromRole="OrderDetTbl" ToRole="ProductTbl" />
+          <NavigationProperty Name="OrderTbl" Relationship="MiniAppModel.FK_OrderDetTbl_OrderTbl" FromRole="OrderDetTbl" ToRole="OrderTbl" />
+        </EntityType>
+        <EntityType Name="ProductTbl">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Int64" />
+          <Property Name="ProductDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MfgName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CartTbls" Relationship="Self.FK_CartTbl_ProductTbl" FromRole="ProductTbl" ToRole="CartTbl" />
+          <NavigationProperty Name="CategoryTbl" Relationship="Self.FK_ProductTbl_CategoryTbl" FromRole="ProductTbl" ToRole="CategoryTbl" />
+          <NavigationProperty Name="OrderDetTbls" Relationship="Self.FK_OrderDetTbl_ProductTbl" FromRole="ProductTbl" ToRole="OrderDetTbl" />
+        </EntityType>
+        <EntityType Name="StoreTbl">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CartTbls" Relationship="Self.FK_CartTbl_UserTbl" FromRole="UserTbl" ToRole="CartTbl" />
+          <NavigationProperty Name="OrderTbls" Relationship="MiniAppModel.FK_OrderTbl_UserTbl" FromRole="UserTbl" ToRole="OrderTbl" />
+        </EntityType>
+        <Association Name="FK_CartTbl_ProductTbl">
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="0..1" />
+          <End Role="CartTbl" Type="Self.CartTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTbl">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="CartTbl">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CartTbl_UserTbl">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+          <End Role="CartTbl" Type="Self.CartTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CartTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryTbl_MainCategoryTbl">
+          <End Role="MainCategoryTbl" Type="Self.MainCategoryTbl" Multiplicity="0..1" />
+          <End Role="CategoryTbl" Type="Self.CategoryTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainCategoryTbl">
+              <PropertyRef Name="MainCategoryID" />
+            </Principal>
+            <Dependent Role="CategoryTbl">
+              <PropertyRef Name="MainCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTbl_CategoryTbl">
+          <End Role="CategoryTbl" Type="Self.CategoryTbl" Multiplicity="0..1" />
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTbl">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ProductTbl">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetTbl_ProductTbl">
+          <End Role="ProductTbl" Type="Self.ProductTbl" Multiplicity="0..1" />
+          <End Role="OrderDetTbl" Type="Self.OrderDetTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTbl">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetTbl">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CartTbls" EntityType="Self.CartTbl" />
+          <EntitySet Name="CategoryTbls" EntityType="Self.CategoryTbl" />
+          <EntitySet Name="MainCategoryTbls" EntityType="Self.MainCategoryTbl" />
+          <EntitySet Name="OrderDetTbls" EntityType="Self.OrderDetTbl" />
+          <EntitySet Name="ProductTbls" EntityType="Self.ProductTbl" />
+          <EntitySet Name="StoreTbls" EntityType="Self.StoreTbl" />
+          <EntitySet Name="UserTbls" EntityType="Self.UserTbl" />
+          <AssociationSet Name="FK_CartTbl_ProductTbl" Association="Self.FK_CartTbl_ProductTbl">
+            <End Role="ProductTbl" EntitySet="ProductTbls" />
+            <End Role="CartTbl" EntitySet="CartTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartTbl_UserTbl" Association="Self.FK_CartTbl_UserTbl">
+            <End Role="UserTbl" EntitySet="UserTbls" />
+            <End Role="CartTbl" EntitySet="CartTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryTbl_MainCategoryTbl" Association="Self.FK_CategoryTbl_MainCategoryTbl">
+            <End Role="MainCategoryTbl" EntitySet="MainCategoryTbls" />
+            <End Role="CategoryTbl" EntitySet="CategoryTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTbl_CategoryTbl" Association="Self.FK_ProductTbl_CategoryTbl">
+            <End Role="CategoryTbl" EntitySet="CategoryTbls" />
+            <End Role="ProductTbl" EntitySet="ProductTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetTbl_ProductTbl" Association="Self.FK_OrderDetTbl_ProductTbl">
+            <End Role="ProductTbl" EntitySet="ProductTbls" />
+            <End Role="OrderDetTbl" EntitySet="OrderDetTbls" />
+          </AssociationSet>
+          <EntitySet Name="OrderTbls" EntityType="MiniAppModel.OrderTbl" />
+          <AssociationSet Name="FK_OrderDetTbl_OrderTbl" Association="MiniAppModel.FK_OrderDetTbl_OrderTbl">
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+            <End Role="OrderDetTbl" EntitySet="OrderDetTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTbl_UserTbl" Association="MiniAppModel.FK_OrderTbl_UserTbl">
+            <End Role="UserTbl" EntitySet="UserTbls" />
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+          </AssociationSet>
+          <EntitySet Name="DispatchAgencyTbls" EntityType="MiniAppModel.DispatchAgencyTbl" />
+          <EntitySet Name="OrderDispatchTbls" EntityType="MiniAppModel.OrderDispatchTbl" />
+          <AssociationSet Name="FK_OrderDispatchTbl_DispatchAgencyTbl" Association="MiniAppModel.FK_OrderDispatchTbl_DispatchAgencyTbl">
+            <End Role="DispatchAgencyTbl" EntitySet="DispatchAgencyTbls" />
+            <End Role="OrderDispatchTbl" EntitySet="OrderDispatchTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDispatchTbl_OrderTbl" Association="MiniAppModel.FK_OrderDispatchTbl_OrderTbl">
+            <End Role="OrderTbl" EntitySet="OrderTbls" />
+            <End Role="OrderDispatchTbl" EntitySet="OrderDispatchTbls" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OrderTbl">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="PaymentMode" Type="Int32" />
+          <NavigationProperty Name="OrderDetTbls" Relationship="MiniAppModel.FK_OrderDetTbl_OrderTbl" FromRole="OrderTbl" ToRole="OrderDetTbl" />
+          <NavigationProperty Name="UserTbl" Relationship="MiniAppModel.FK_OrderTbl_UserTbl" FromRole="OrderTbl" ToRole="UserTbl" />
+          <NavigationProperty Name="OrderDispatchTbls" Relationship="MiniAppModel.FK_OrderDispatchTbl_OrderTbl" FromRole="OrderTbl" ToRole="OrderDispatchTbl" />
+        </EntityType>
+        <Association Name="FK_OrderDetTbl_OrderTbl">
+          <End Type="MiniAppModel.OrderTbl" Role="OrderTbl" Multiplicity="0..1" />
+          <End Type="MiniAppModel.OrderDetTbl" Role="OrderDetTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetTbl">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTbl_UserTbl">
+          <End Type="MiniAppModel.UserTbl" Role="UserTbl" Multiplicity="0..1" />
+          <End Type="MiniAppModel.OrderTbl" Role="OrderTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DispatchAgencyTbl">
+          <Key>
+            <PropertyRef Name="DispatchAgencyID" />
+          </Key>
+          <Property Name="DispatchAgencyID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DispatchAgencyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderDispatchTbls" Relationship="MiniAppModel.FK_OrderDispatchTbl_DispatchAgencyTbl" FromRole="DispatchAgencyTbl" ToRole="OrderDispatchTbl" />
+        </EntityType>
+        <EntityType Name="OrderDispatchTbl">
+          <Key>
+            <PropertyRef Name="OrderDispatchID" />
+          </Key>
+          <Property Name="OrderDispatchID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int64" />
+          <Property Name="DispatchDate" Type="DateTime" Precision="3" />
+          <Property Name="AgencyID" Type="Int64" />
+          <Property Name="DocketNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DispatchAgencyTbl" Relationship="MiniAppModel.FK_OrderDispatchTbl_DispatchAgencyTbl" FromRole="OrderDispatchTbl" ToRole="DispatchAgencyTbl" />
+          <NavigationProperty Name="OrderTbl" Relationship="MiniAppModel.FK_OrderDispatchTbl_OrderTbl" FromRole="OrderDispatchTbl" ToRole="OrderTbl" />
+        </EntityType>
+        <Association Name="FK_OrderDispatchTbl_DispatchAgencyTbl">
+          <End Type="MiniAppModel.DispatchAgencyTbl" Role="DispatchAgencyTbl" Multiplicity="0..1" />
+          <End Type="MiniAppModel.OrderDispatchTbl" Role="OrderDispatchTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DispatchAgencyTbl">
+              <PropertyRef Name="DispatchAgencyID" />
+            </Principal>
+            <Dependent Role="OrderDispatchTbl">
+              <PropertyRef Name="AgencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDispatchTbl_OrderTbl">
+          <End Type="MiniAppModel.OrderTbl" Role="OrderTbl" Multiplicity="0..1" />
+          <End Type="MiniAppModel.OrderDispatchTbl" Role="OrderDispatchTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTbl">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDispatchTbl">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MiniAppModelStoreContainer" CdmEntityContainer="MiniAppEntities">
+          <EntitySetMapping Name="CartTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.CartTbl">
+              <MappingFragment StoreEntitySet="CartTbl">
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.CategoryTbl">
+              <MappingFragment StoreEntitySet="CategoryTbl">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="MainCategoryID" ColumnName="MainCategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainCategoryTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.MainCategoryTbl">
+              <MappingFragment StoreEntitySet="MainCategoryTbl">
+                <ScalarProperty Name="MainCategoryID" ColumnName="MainCategoryID" />
+                <ScalarProperty Name="MainCategory" ColumnName="MainCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.OrderDetTbl">
+              <MappingFragment StoreEntitySet="OrderDetTbl">
+                <ScalarProperty Name="OrderDetID" ColumnName="OrderDetID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.ProductTbl">
+              <MappingFragment StoreEntitySet="ProductTbl">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductDesc" ColumnName="ProductDesc" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MfgName" ColumnName="MfgName" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.StoreTbl">
+              <MappingFragment StoreEntitySet="StoreTbl">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.UserTbl">
+              <MappingFragment StoreEntitySet="UserTbl">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.OrderTbl">
+              <MappingFragment StoreEntitySet="OrderTbl">
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DispatchAgencyTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.DispatchAgencyTbl">
+              <MappingFragment StoreEntitySet="DispatchAgencyTbl">
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DispatchAgencyName" ColumnName="DispatchAgencyName" />
+                <ScalarProperty Name="DispatchAgencyID" ColumnName="DispatchAgencyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDispatchTbls">
+            <EntityTypeMapping TypeName="MiniAppModel.OrderDispatchTbl">
+              <MappingFragment StoreEntitySet="OrderDispatchTbl">
+                <ScalarProperty Name="DocketNo" ColumnName="DocketNo" />
+                <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />
+                <ScalarProperty Name="DispatchDate" ColumnName="DispatchDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDispatchID" ColumnName="OrderDispatchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

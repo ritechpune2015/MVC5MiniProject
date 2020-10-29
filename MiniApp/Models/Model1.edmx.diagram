@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="63fe10e8d46147b8a56f86f231beba7b" Name="Diagram1">
+        <EntityTypeShape EntityType="MiniAppModel.CartTbl" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.CategoryTbl" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.MainCategoryTbl" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.OrderDetTbl" Width="1.5" PointX="10.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.ProductTbl" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.StoreTbl" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniAppModel.UserTbl" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="MiniAppModel.FK_CartTbl_ProductTbl" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniAppModel.FK_CartTbl_UserTbl" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniAppModel.FK_CategoryTbl_MainCategoryTbl" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniAppModel.FK_ProductTbl_CategoryTbl" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniAppModel.FK_OrderDetTbl_ProductTbl" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MiniAppModel.OrderTbl" Width="1.5" PointX="7.5" PointY="8.75" />
+        <AssociationConnector Association="MiniAppModel.FK_OrderDetTbl_OrderTbl" />
+        <AssociationConnector Association="MiniAppModel.FK_OrderTbl_UserTbl" />
+        <EntityTypeShape EntityType="MiniAppModel.DispatchAgencyTbl" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MiniAppModel.OrderDispatchTbl" Width="1.5" PointX="9.75" PointY="6.75" />
+        <AssociationConnector Association="MiniAppModel.FK_OrderDispatchTbl_DispatchAgencyTbl" />
+        <AssociationConnector Association="MiniAppModel.FK_OrderDispatchTbl_OrderTbl" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

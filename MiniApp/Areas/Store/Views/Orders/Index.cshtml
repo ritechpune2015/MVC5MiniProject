@@ -1,0 +1,28 @@
+﻿
+
+
+    <section class="panel">
+        <header class="panel-heading tab-bg-primary ">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#home">New Order</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" href="#about">Dispatched Orders</a>
+                </li>
+                
+            </ul>
+        </header>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div id="home" class="tab-pane active">
+                  @Html.Action("GetNewOrders") 
+                </div>
+                <div id="about" class="tab-pane">
+                  @Html.Action("GetDispatchedOrders")
+                </div>
+                
+            </div>
+        </div>
+    </section>
+

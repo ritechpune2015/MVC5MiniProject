@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MiniApp.Models.OrderTbl>
+<h2> New Orders </h2>
+<table class="table">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserTbl.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(p => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @if (item.PaymentMode == 1)
+                {
+                    <span class="alert-success">Cash on Delivery</span>
+                }
+                else
+                {
+                    <span class="alert-danger">Card Payment</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserTbl.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                @Html.ActionLink("Dispatch", "Dispatch", new { id = item.OrderID }) |
+            </td>
+        </tr>
+    }
+
+</table>

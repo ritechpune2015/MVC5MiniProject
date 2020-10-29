@@ -1,0 +1,115 @@
+﻿@model IEnumerable<MiniApp.Models.CartTbl>
+
+@{
+    ViewBag.Title = "GetCart";
+}
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $(".tqty").change(function () {
+          //  alert($(this).val());
+            var qty = $(this).val();
+            var item = $(this).parent().children();
+            var cartid=item[1].value;
+            $.ajax({
+                url: "/Cart/UpdateCart/?Cartid=" + cartid + "&Qty=" + qty,
+                type: "Get",
+                contentType: "application/json",
+                success: function (result) {
+               //     alert("Success!");
+                    location.href = "/Cart/GetCart";
+                },
+                error: function(err)
+                {
+                    alert("Enable to update the Cart!");
+                }
+            });
+
+        });
+    });
+</script>
+<div class="container">
+     <div class="row">
+         <div class="col-md-12">
+             <h2>GetCart For :@Session["UserName"]</h2>
+             @{ 
+                 List<SelectListItem> lst = new List<SelectListItem>();
+                 lst.Add(new SelectListItem() { Text = "Cash On Delivery", Value = "1" });
+                 lst.Add(new SelectListItem() { Text = "Card", Value = "2" });
+             }
+             <table class="table table-bordered">
+                 <tr>
+                     <th>
+                         Sr. No. 
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.ProductTbl.ProductName)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Qty)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Price)
+                     </th>
+                     <td>Amount</td>
+                     <th>Actions</th>
+                 </tr>
+                 @{ int cnt = 1;
+                     decimal? Amount = 0,TotalAmount=0;
+
+                     }
+                 @foreach (var item in Model)
+                 {
+             <tr>
+                 <td>
+                     @cnt
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.ProductTbl.ProductName)
+                 </td>
+                 <td>
+                     <span>
+                         <input type="number" class="tqty" value="@item.Qty" />
+                         <input type="hidden" value="@item.CartID" />
+                     </span>
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Price)
+                 </td>
+               <td>
+                   @{ 
+                       Amount = item.Price * item.Qty;
+                       TotalAmount += Amount;
+
+                   }
+
+                   @Amount
+               </td>
+
+                 <td>
+                     @Html.ActionLink("Delete", "RemoveCart", new { id = item.CartID },new { @class = "btn btn-danger" })
+                 </td>
+             </tr>
+                     cnt++;
+                 }
+ <tr>
+     <td colspan="4" class="text-right alert-danger">
+          Total : =>
+     </td>
+     <td>
+         @TotalAmount
+     </td>
+     <td>
+         @using (Html.BeginForm("CheckOut","Cart",FormMethod.Post))
+         { 
+            @Html.DropDownList("PaymentMode",lst)<br />
+            <input type="submit" value="Make Payment" class="btn btn-danger" />
+          }
+         
+     </td>
+ </tr>
+             </table>
+         </div>
+     </div>
+</div>

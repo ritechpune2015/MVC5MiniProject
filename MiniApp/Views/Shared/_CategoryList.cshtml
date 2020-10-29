@@ -1,0 +1,12 @@
+﻿@model IEnumerable<MiniApp.Models.CategoryTbl>
+
+    <dd class="even">
+        <ol>
+            @foreach (var temp in Model)
+            {
+            <li>
+                @Html.ActionLink(temp.CategoryName,"GetProducts","Home",new {id=temp.CategoryID},null)
+            </li>
+            }
+        </ol>
+    </dd>

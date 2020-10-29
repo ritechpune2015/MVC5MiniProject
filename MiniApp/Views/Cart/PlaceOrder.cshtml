@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "PlaceOrder";
+}
+
+<h2 class="alert-success">Thank you for placing the order!</h2>
+
+<h3> Plese Note down your order details for futher communication .. </h3>
+<table class="table table-bordered">
+     <tr>
+         <td>
+             Order ID
+         </td>
+         <td>
+             @ViewBag.OrderID
+         </td>
+     </tr>
+    <tr>
+        <td>
+            Order Date:
+        </td>
+        <td>
+            @DateTime.Now
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Order Amount:
+        </td>
+        <td>
+            @ViewBag.Amount
+        </td>
+    </tr>
+</table>
+<br />
+

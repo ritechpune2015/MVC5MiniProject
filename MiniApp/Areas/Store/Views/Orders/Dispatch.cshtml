@@ -1,0 +1,79 @@
+﻿@model MiniApp.Models.OrderDispatchTbl
+
+@{
+    ViewBag.Title = "Dispatch";
+}
+
+<h2>Dispatch</h2>
+<table>
+    <tr>
+        <td>
+            Order ID
+        </td>
+        <td>
+            @ViewBag.OrderID
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Order Date:
+        </td>
+        <td>
+            @ViewBag.OrderDate
+        </td>
+    </tr>
+    <tr>
+        <td>
+            User Name:
+        </td>
+        <td>
+            @ViewBag.UserName
+        </td>
+    </tr>
+</table>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>OrderDispatchTbl</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       <input type="hidden" name="OrderID" id="OrderID" value="@ViewBag.OrderID" />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DispatchDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DispatchDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DispatchDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AgencyID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AgencyID")
+                @Html.ValidationMessageFor(model => model.AgencyID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DocketNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DocketNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DocketNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

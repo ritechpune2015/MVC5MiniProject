@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MiniApp.Models.ProductTbl>
+@{
+    ViewBag.Title = "GetProducts";
+}
+
+    <div class="men">
+        <div class="container">
+            <div class="col-md-3 sidebar">
+                <div class="block block-layered-nav">
+                    <div class="block-title">
+                        <strong><span>Shop By Category</span></strong>
+                    </div>
+                    <div class="block-content">
+
+                        <dl id="narrow-by-list">
+                         @Html.Action("GetCategories","Home")
+                            
+                        </dl>
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-9">
+                <div class="mens-toolbar">
+                    <div class="sort">
+                        <div class="sort-by">
+                            <label>Sort By</label>
+                            <select>
+                                <option value="">
+                                    Popularity
+                                </option>
+                                <option value="">
+                                    Price : High to Low
+                                </option>
+                                <option value="">
+                                    Price : Low to High
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pager">
+                        <div class="limiter visible-desktop">
+                            <label>Show</label>
+                            <select>
+                                <option value="" selected="selected">
+                                    9
+                                </option>
+                                <option value="">
+                                    15
+                                </option>
+                                <option value="">
+                                    30
+                                </option>
+                            </select> per page
+                        </div>
+                        <ul class="dc_pagination dc_paginationA dc_paginationA06">
+                            <li><a href="#" class="previous">Pages</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="span_2">
+                   @foreach (var temp in Model)
+                   {
+                    <div class="col_1_of_single1 span_1_of_single1">
+                        <a href="single.html">
+                            <img src="@temp.ImagePath" class="img-responsive" alt="" />
+                            <h3>@temp.ProductName</h3>
+                            <p>@temp.ProductDesc</p>
+                            <h4>Rs.@temp.Price</h4>
+                        </a>
+                        <div>
+                            @Html.ActionLink("Add To Cart","AddToCart","Cart",new { id = temp.ProductID },new {@class="btn btn-danger"} )
+                        </div>
+                    </div>
+                   }
+                    <div class="clearfix"></div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+

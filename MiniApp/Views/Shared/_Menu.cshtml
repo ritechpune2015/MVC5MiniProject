@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MiniApp.Models.MainCategoryTbl>
+    <div class="menu_box">
+        <ul class="megamenu skyblue">
+            <li class="active grid"><a class="color2" href="index.html">Home</a></li>
+            
+            @foreach (var temp in Model)
+            {
+            <li>
+                <a class="color10" href="#">@temp.MainCategory</a>
+                <div class="megapanel">
+                    <div class="row">
+                        <div class="col1">
+                            <div class="h_nav">
+                                <ul>
+                                    @foreach (var temp1 in temp.CategoryTbls)
+                                    {
+                                    <li><a href="/Home/getProducts/@temp1.CategoryID">@temp1.CategoryName</a></li>
+                                    }
+                                   </ul>
+                            </div>
+                        </div>
+                  
+                    </div>
+                </div>
+            </li>
+            }
+            <div class="clearfix"> </div>
+        </ul>
+    </div>

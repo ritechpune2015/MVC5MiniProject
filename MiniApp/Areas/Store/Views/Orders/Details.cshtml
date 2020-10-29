@@ -1,0 +1,93 @@
+﻿@model MiniApp.Models.OrderTbl
+<div>
+    <h4>OrderTbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentMode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserTbl.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserTbl.UserName)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Sr. No.
+            </th>
+            <th>
+                @Html.Label("Product Name")
+            </th>
+            <th>
+                @Html.Label("Qty")
+            </th>
+            <th>
+                @Html.Label("Price")
+            </th>
+            <td>Amount</td>
+        </tr>
+        @{ int cnt = 1;
+            decimal? Amount = 0, TotalAmount = 0;
+
+        }
+        @foreach (var item in Model.OrderDetTbls)
+        {
+            <tr>
+                <td>
+                    @cnt
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductTbl.ProductName)
+                </td>
+                <td>
+                    <img src="@item.ProductTbl.ImagePath" width="60" height="60" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @{
+                        Amount = item.Price * item.Qty;
+                        TotalAmount += Amount;
+
+                    }
+
+                    @Amount
+                </td>
+
+            </tr>
+            cnt++;
+        }
+        <tr>
+            <td colspan="4" class="text-right alert-danger">
+                Total : =>
+            </td>
+            <td>
+                @TotalAmount
+            </td>
+        </tr>
+    </table>
+</div>
